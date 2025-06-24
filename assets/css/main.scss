@@ -190,6 +190,44 @@ pre code {
   font-size: 0.85rem;
 }
 
+/* Remove table styling from syntax highlighted code blocks */
+.highlight {
+  background-color: #f6f8fa !important;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.highlight table {
+  border: none !important;
+  margin: 0 !important;
+  border-collapse: collapse;
+}
+
+.highlight table td {
+  border: none !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 1.5rem;
+  border: none;
+  background: none;
+}
+
+.highlight .lineno {
+  color: #999;
+  user-select: none;
+  padding-right: 1rem;
+}
+
+/* Additional highlight overrides */
+.highlight {
+  border: none !important;
+}
+
 /* Tables */
 table {
   width: 100%;
