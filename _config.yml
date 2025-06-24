@@ -1,8 +1,8 @@
 # Site settings
 title: "DNA Alignment Tutorial"
 description: "A comprehensive tutorial on DNA sequence alignment techniques and tools"
-baseurl: ""
-url: "https://yourusername.github.io"
+baseurl: "tutorial-demo" # Set to "/repository-name" for GitHub Pages subdirectory
+url: "https://quadram-institute-bioscience.github.io"
 
 # Color scheme - easily configurable
 colors:

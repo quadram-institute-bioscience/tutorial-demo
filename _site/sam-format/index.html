@@ -11,6 +11,7 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
@@ -107,17 +108,12 @@
 
 <h3 id="header-section">Header Section</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre>@HD	VN:1.6	SO:coordinate
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@HD	VN:1.6	SO:coordinate
 @SQ	SN:chr1	LN:248956422
 @SQ	SN:chr2	LN:242193529
 @RG	ID:sample1	SM:patient_001	PL:ILLUMINA
 @PG	ID:bwa	PN:bwa	VN:0.7.17
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Header line types:</p>
 <ul>
@@ -212,9 +208,8 @@
 
 <h3 id="example-sam-line">Example SAM Line</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCGATCGATCG...	IIIIIIIIIIII...
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCGATCGATCG...	IIIIIIIIIIII...
+</code></pre></div></div>
 
 <h2 id="understanding-sam-flags">Understanding SAM FLAGS</h2>
 
@@ -374,15 +369,11 @@
 
 <h3 id="cigar-examples">CIGAR Examples</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre>100M        # 100 bases match/mismatch
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100M        # 100 bases match/mismatch
 50M2I48M    # 50 match, 2 insertion, 48 match  
 30M10D70M   # 30 match, 10 deletion, 70 match
 10S90M      # 10 soft-clipped, 90 match
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="mapping-quality-mapq">Mapping Quality (MAPQ)</h2>
 
@@ -429,27 +420,7 @@
 
 <h3 id="basic-samtools-commands">Basic samtools Commands</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-</pre></td><td class="rouge-code"><pre><span class="c"># View SAM file</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># View SAM file</span>
 samtools view alignment.sam
 
 <span class="c"># Convert SAM to BAM</span>
@@ -469,22 +440,11 @@ samtools flagstat sorted.bam
 
 <span class="c"># View header only</span>
 samtools view <span class="nt">-H</span> sorted.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="sambam-statistics">SAM/BAM Statistics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># Basic statistics</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Basic statistics</span>
 samtools flagstat input.bam
 
 <span class="c"># Detailed statistics</span>
@@ -495,22 +455,10 @@ samtools depth input.bam
 
 <span class="c"># Coverage histogram</span>
 samtools coverage input.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Sample <code class="language-plaintext highlighter-rouge">flagstat</code> output:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre>1000000 + 0 in total (QC-passed reads + QC-failed reads)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1000000 + 0 in total (QC-passed reads + QC-failed reads)
 950000 + 0 primary
 0 + 0 secondary
 50000 + 0 supplementary
@@ -522,7 +470,7 @@ samtools coverage input.bam
 940000 + 0 properly paired (94.00% : N/A)
 960000 + 0 with itself and mate mapped
 20000 + 0 singletons (2.00% : N/A)
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="optional-fields-tags">Optional Fields (Tags)</h2>
 
@@ -572,9 +520,8 @@ samtools coverage input.bam
 
 <h3 id="example-with-optional-fields">Example with Optional Fields</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCG...	IIII...	NM:i:2	MD:Z:50A25T24	AS:i:190
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCG...	IIII...	NM:i:2	MD:Z:50A25T24	AS:i:190
+</code></pre></div></div>
 
 <h2 id="best-practices">Best Practices</h2>
 
@@ -589,25 +536,7 @@ samtools coverage input.bam
 <details>
   <summary>Common SAM/BAM processing workflow</summary>
 
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre>  <span class="c"># 1. Align reads (using BWA as example)</span>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># 1. Align reads (using BWA as example)</span>
   bwa mem reference.fasta reads_R1.fastq reads_R2.fastq <span class="o">&gt;</span> alignment.sam
   
   <span class="c"># 2. Convert to BAM and sort</span>
@@ -625,7 +554,7 @@ samtools coverage input.bam
   
   <span class="c"># 6. Filter by quality (optional)</span>
   samtools view <span class="nt">-q</span> 30 <span class="nt">-b</span> sorted.bam <span class="o">&gt;</span> filtered.bam
-</pre></td></tr></tbody></table></code></pre></div>  </div>
+</code></pre></div>  </div>
 
 </details>
 

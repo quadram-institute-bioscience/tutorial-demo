@@ -11,6 +11,7 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
@@ -139,21 +140,14 @@
 
 <h3 id="2-speed-metrics">2. Speed Metrics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Measure runtime and memory usage</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Measure runtime and memory usage</span>
 /usr/bin/time <span class="nt">-v</span> mapper_command input.fastq <span class="o">&gt;</span> output.sam
 
 <span class="c"># Key metrics from time output:</span>
 <span class="c"># - Elapsed (wall clock) time</span>
 <span class="c"># - User time (CPU time)  </span>
 <span class="c"># - Maximum resident set size (peak memory)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-alignment-quality-metrics">3. Alignment Quality Metrics</h3>
 
@@ -195,22 +189,7 @@
 
 <p>Use read simulators to create datasets with known truth:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre><span class="c"># Using ART (Illumina read simulator)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using ART (Illumina read simulator)</span>
 art_illumina <span class="se">\</span>
   <span class="nt">-ss</span> HS25 <span class="se">\</span>
   <span class="nt">-i</span> reference.fasta <span class="se">\</span>
@@ -225,7 +204,7 @@ dwgsim <span class="se">\</span>
   <span class="nt">-2</span> 150 <span class="se">\</span>
   reference.fasta <span class="se">\</span>
   simulated
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-spike-in-controls">2. Spike-in Controls</h3>
 
@@ -274,33 +253,18 @@ dwgsim <span class="se">\</span>
 
 <h3 id="long-read-benchmarks">Long-read Benchmarks</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># PacBio data</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># PacBio data</span>
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/PacBio_MtSinai/
 
 <span class="c"># Oxford Nanopore data  </span>
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NA12878_PacBio_MtSinai/
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="testing-framework-example">Testing Framework Example</h2>
 
 <h3 id="1-set-up-test-environment">1. Set Up Test Environment</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c"># test_mapper.sh</span>
 
 <span class="nv">REFERENCE</span><span class="o">=</span><span class="s2">"reference.fasta"</span>
@@ -310,22 +274,11 @@ wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NA12878_PacBio_MtSin
 
 <span class="c"># Mappers to test</span>
 <span class="nv">MAPPERS</span><span class="o">=(</span><span class="s2">"bwa"</span> <span class="s2">"bowtie2"</span> <span class="s2">"minimap2"</span> <span class="s2">"hisat2"</span><span class="o">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-run-alignments">2. Run Alignments</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># BWA-MEM</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># BWA-MEM</span>
 bwa mem <span class="nt">-t</span> 8 <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> bwa.bam
 samtools index bwa.bam
 
@@ -336,23 +289,11 @@ samtools index bowtie2.bam
 <span class="c"># Minimap2</span>
 minimap2 <span class="nt">-ax</span> sr <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> minimap2.bam
 samtools index minimap2.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-collect-statistics">3. Collect Statistics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="k">for </span>mapper <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MAPPERS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>mapper <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MAPPERS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
     </span><span class="nb">echo</span> <span class="s2">"=== </span><span class="nv">$mapper</span><span class="s2"> ==="</span>
     
     <span class="c"># Basic stats</span>
@@ -364,7 +305,7 @@ samtools index minimap2.bam
     <span class="c"># Insert size distribution (for paired reads)</span>
     samtools view <span class="nt">-f</span> 2 <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>.bam | <span class="nb">cut</span> <span class="nt">-f9</span> | <span class="nb">sort</span> <span class="nt">-n</span> <span class="o">&gt;</span> <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>_insert.txt
 <span class="k">done</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="advanced-evaluation-tools">Advanced Evaluation Tools</h2>
 
@@ -372,53 +313,36 @@ samtools index minimap2.bam
 
 <p>Evaluate alignment accuracy using simulation truth:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Install teaser</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install teaser</span>
 pip <span class="nb">install </span>teaser
 
 <span class="c"># Run evaluation</span>
 teaser <span class="nt">-r</span> reference.fasta <span class="nt">-t</span> truth.sam <span class="nt">-a</span> test.sam <span class="nt">-o</span> results/
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-rabema">2. Rabema</h3>
 
 <p>Read alignment benchmark for evaluating mappers:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Build gold standard</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build gold standard</span>
 rabema_build_gold_standard <span class="nt">-r</span> reference.fasta <span class="nt">-s</span> simulated.sam <span class="nt">-o</span> gold.gsi
 
 <span class="c"># Evaluate mapper</span>
 rabema_evaluate <span class="nt">-g</span> gold.gsi <span class="nt">-a</span> test.sam <span class="nt">-o</span> evaluation.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-mason">3. Mason</h3>
 
 <p>Sophisticated read simulator with variant support:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Simulate with variants</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Simulate with variants</span>
 mason_simulator <span class="se">\</span>
   <span class="nt">-ir</span> reference.fasta <span class="se">\</span>
   <span class="nt">-n</span> 1000000 <span class="se">\</span>
   <span class="nt">-o</span> simulated <span class="se">\</span>
   <span class="nt">--illumina-read-length</span> 150 <span class="se">\</span>
   <span class="nt">--fragment-mean-size</span> 300
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="evaluation-checklist">Evaluation Checklist</h2>
 
@@ -470,11 +394,9 @@ mason_simulator <span class="se">\</span>
 </ul>
 
 <h3 id="2-ignoring-parameter-tuning">2. Ignoring Parameter Tuning</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Don't just use defaults - optimize for your data</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Don't just use defaults - optimize for your data</span>
 bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class="nt">-d</span> 100 <span class="nt">-r</span> 1.5 <span class="nt">-A</span> 1 <span class="nt">-B</span> 4 <span class="nt">-O</span> 6 <span class="nt">-E</span> 1 <span class="nt">-L</span> 5 reference.fasta reads.fastq
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-not-considering-downstream-analysis">3. Not Considering Downstream Analysis</h3>
 <ul>
@@ -528,23 +450,7 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="visualization">Visualization</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
 <span class="c1"># Create performance comparison plots
@@ -560,7 +466,7 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 </span><span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'mapper'</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">'memory_gb'</span><span class="p">])</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Memory Usage (GB)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Memory Requirements by Mapper'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <hr />
 

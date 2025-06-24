@@ -11,6 +11,7 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/syntax.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
@@ -150,18 +151,7 @@
 
 <h2 id="blast-programs">BLAST Programs</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># DNA sequence vs DNA database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># DNA sequence vs DNA database</span>
 blastn <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
 
 <span class="c"># Protein sequence vs protein database  </span>
@@ -172,7 +162,7 @@ blastx <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> 
 
 <span class="c"># Protein sequence vs DNA database (translated)</span>
 tblastn <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="understanding-blast-output">Understanding BLAST Output</h2>
 
@@ -207,17 +197,7 @@ tblastn <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</s
 
 <h3 id="sample-blast-hit">Sample BLAST Hit</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre>&gt;gi|123456|ref|NM_000001.1| Homo sapiens gene (GENE1)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;gi|123456|ref|NM_000001.1| Homo sapiens gene (GENE1)
 Length=2000
 
  Score = 85.7 bits (94),  Expect = 2e-16
@@ -227,7 +207,7 @@ Length=2000
 Query  1    ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  50
             ||||||||||||||||||||||||||||||||||||||||||||||||
 Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <details>
   <summary>How to interpret E-values?</summary>
@@ -249,15 +229,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
 
 <h3 id="common-parameters">Common Parameters</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre>blastn <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blastn <span class="se">\</span>
   <span class="nt">-query</span> input.fasta <span class="se">\</span>
   <span class="nt">-db</span> database_name <span class="se">\</span>
   <span class="nt">-out</span> results.txt <span class="se">\</span>
@@ -265,7 +237,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
   <span class="nt">-word_size</span> 11 <span class="se">\ </span>        <span class="c"># Seed length</span>
   <span class="nt">-max_target_seqs</span> 100 <span class="se">\ </span> <span class="c"># Max number of hits</span>
   <span class="nt">-outfmt</span> 6               <span class="c"># Tabular output</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="output-formats">Output Formats</h3>
 
@@ -306,15 +278,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
 
 <h2 id="creating-custom-blast-databases">Creating Custom BLAST Databases</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c"># Create nucleotide database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create nucleotide database</span>
 makeblastdb <span class="nt">-in</span> sequences.fasta <span class="nt">-dbtype</span> nucl <span class="nt">-out</span> my_database
 
 <span class="c"># Create protein database  </span>
@@ -322,30 +286,24 @@ makeblastdb <span class="nt">-in</span> proteins.fasta <span class="nt">-dbtype<
 
 <span class="c"># Then search against your custom database</span>
 blastn <span class="nt">-query</span> query.fasta <span class="nt">-db</span> my_database <span class="nt">-out</span> results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="blast-command-line-examples">BLAST+ Command Line Examples</h2>
 
 <h3 id="basic-dna-search">Basic DNA Search</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Search nucleotide query against nucleotide database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Search nucleotide query against nucleotide database</span>
 blastn <span class="nt">-query</span> my_gene.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-out</span> blast_results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="protein-similarity-search">Protein Similarity Search</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Find similar proteins</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Find similar proteins</span>
 blastp <span class="nt">-query</span> my_protein.fasta <span class="nt">-db</span> nr <span class="nt">-remote</span> <span class="nt">-evalue</span> 1e-10
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="tabular-output-for-parsing">Tabular Output for Parsing</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Get results in easy-to-parse format</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get results in easy-to-parse format</span>
 blastn <span class="nt">-query</span> sequences.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-outfmt</span> <span class="s2">"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"</span> <span class="nt">-out</span> results.tsv
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="blast-limitations">BLAST Limitations</h2>
 

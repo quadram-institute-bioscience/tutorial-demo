@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-06-24T13:52:16+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DNA Alignment Tutorial</title><subtitle>A comprehensive tutorial on DNA sequence alignment techniques and tools</subtitle><entry><title type="html">Minimap2</title><link href="http://localhost:4000/minimap2/" rel="alternate" type="text/html" title="Minimap2" /><published>2024-01-06T00:00:00+00:00</published><updated>2024-01-06T00:00:00+00:00</updated><id>http://localhost:4000/minimap2</id><content type="html" xml:base="http://localhost:4000/minimap2/"><![CDATA[<h1 id="minimap2-a-versatile-long-read-aligner">Minimap2: A Versatile Long-Read Aligner</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-06-24T16:05:16+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DNA Alignment Tutorial</title><subtitle>A comprehensive tutorial on DNA sequence alignment techniques and tools</subtitle><entry><title type="html">Minimap2</title><link href="http://localhost:4000/minimap2/" rel="alternate" type="text/html" title="Minimap2" /><published>2024-01-06T00:00:00+00:00</published><updated>2024-01-06T00:00:00+00:00</updated><id>http://localhost:4000/minimap2</id><content type="html" xml:base="http://localhost:4000/minimap2/"><![CDATA[<h1 id="minimap2-a-versatile-long-read-aligner">Minimap2: A Versatile Long-Read Aligner</h1>
 
 <p>Minimap2 is a modern, versatile sequence alignment tool designed for the era of long-read sequencing. Developed by Heng Li, it’s fast, accurate, and handles diverse sequence types from short Illumina reads to ultra-long Oxford Nanopore reads.</p>
 
@@ -23,17 +23,7 @@
 
 <h2 id="installation">Installation</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c"># Using conda (recommended)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using conda (recommended)</span>
 conda <span class="nb">install</span> <span class="nt">-c</span> bioconda minimap2
 
 <span class="c"># Using package managers</span>
@@ -43,7 +33,7 @@ brew <span class="nb">install </span>minimap2     <span class="c"># macOS</span>
 <span class="c"># From source</span>
 git clone https://github.com/lh3/minimap2
 <span class="nb">cd </span>minimap2 <span class="o">&amp;&amp;</span> make
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="basic-usage">Basic Usage</h2>
 
@@ -100,18 +90,7 @@ git clone https://github.com/lh3/minimap2
 
 <h3 id="basic-commands">Basic Commands</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># PacBio reads to reference</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># PacBio reads to reference</span>
 minimap2 <span class="nt">-ax</span> map-pb reference.fasta pacbio_reads.fastq <span class="o">&gt;</span> alignments.sam
 
 <span class="c"># Oxford Nanopore reads</span>
@@ -122,7 +101,7 @@ minimap2 <span class="nt">-ax</span> sr reference.fasta reads_R1.fastq reads_R2.
 
 <span class="c"># RNA-seq with splicing</span>
 minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <span class="o">&gt;</span> alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="understanding-minimap2-algorithm">Understanding Minimap2 Algorithm</h2>
 
@@ -135,17 +114,7 @@ minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <spa
   <li>Faster seed finding</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c1"># Conceptual minimizer example
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Conceptual minimizer example
 </span><span class="k">def</span> <span class="nf">minimizers</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="s">"""Find minimizers in sequence"""</span>
     <span class="n">minimizers</span> <span class="o">=</span> <span class="p">[]</span>
@@ -155,7 +124,7 @@ minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <spa
         <span class="n">minimizer</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">kmers</span><span class="p">)</span>  <span class="c1"># Lexicographically smallest
 </span>        <span class="n">minimizers</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">minimizer</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">minimizers</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-chaining">2. Chaining</h3>
 
@@ -179,17 +148,7 @@ minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <spa
 
 <h3 id="custom-parameters">Custom Parameters</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c"># Adjust sensitivity and speed</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Adjust sensitivity and speed</span>
 minimap2 <span class="se">\</span>
   <span class="nt">-k</span> 15 <span class="se">\ </span>          <span class="c"># k-mer size</span>
   <span class="nt">-w</span> 10 <span class="se">\ </span>          <span class="c"># minimizer window size  </span>
@@ -199,19 +158,11 @@ minimap2 <span class="se">\</span>
   <span class="nt">-E</span> 2,1 <span class="se">\ </span>         <span class="c"># gap extension penalty</span>
   <span class="nt">-ax</span> map-ont <span class="se">\</span>
   reference.fasta reads.fastq
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="output-formats">Output Formats</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c"># PAF format (Pairwise mApping Format)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># PAF format (Pairwise mApping Format)</span>
 minimap2 reference.fasta reads.fastq <span class="o">&gt;</span> alignments.paf
 
 <span class="c"># SAM format with detailed alignment</span>
@@ -219,69 +170,50 @@ minimap2 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span c
 
 <span class="c"># Output only coordinates (faster)</span>
 minimap2 <span class="nt">-c</span> reference.fasta reads.fastq <span class="o">&gt;</span> alignments.paf
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="working-with-different-data-types">Working with Different Data Types</h2>
 
 <h3 id="1-pacbio-hifi-ccs-reads">1. PacBio HiFi (CCS) Reads</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="c"># High-accuracy PacBio reads</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># High-accuracy PacBio reads</span>
 minimap2 <span class="nt">-ax</span> map-hifi reference.fasta hifi_reads.fastq <span class="o">&gt;</span> hifi_alignments.sam
 
 <span class="c"># Alternative with specific parameters</span>
 minimap2 <span class="nt">-ax</span> asm20 <span class="nt">-k</span> 19 <span class="nt">-w</span> 19 <span class="nt">-A</span> 1 <span class="nt">-B</span> 19 <span class="nt">-O</span> 39,81 <span class="nt">-E</span> 3,1 <span class="se">\</span>
   reference.fasta hifi_reads.fastq <span class="o">&gt;</span> hifi_alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-ultra-long-nanopore-reads">2. Ultra-long Nanopore Reads</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># For very long reads (&gt;100kb)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># For very long reads (&gt;100kb)</span>
 minimap2 <span class="nt">-ax</span> map-ont <span class="nt">-k</span> 17 <span class="nt">-w</span> 17 reference.fasta ultralong_reads.fastq <span class="o">&gt;</span> alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-rna-seq-data">3. RNA-seq Data</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Splice-aware alignment</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Splice-aware alignment</span>
 minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <span class="o">&gt;</span> rna_alignments.sam
 
 <span class="c"># For noisy long-read RNA-seq</span>
 minimap2 <span class="nt">-ax</span> splice <span class="nt">-uf</span> <span class="nt">-k</span> 14 reference.fasta nanopore_rna.fastq <span class="o">&gt;</span> alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="4-assembly-to-reference">4. Assembly-to-Reference</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Compare assemblies</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Compare assemblies</span>
 minimap2 <span class="nt">-ax</span> asm5 reference.fasta assembly.fasta <span class="o">&gt;</span> assembly_alignment.sam
 
 <span class="c"># Cross-species comparison</span>
 minimap2 <span class="nt">-ax</span> asm10 human_ref.fasta mouse_assembly.fasta <span class="o">&gt;</span> cross_species.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="paf-format">PAF Format</h2>
 
 <p>Minimap2’s native PAF format is simpler than SAM:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>read1  1000  100  900   +  chr1  5000000  1000000  1000750  750  800  60
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read1  1000  100  900   +  chr1  5000000  1000000  1000750  750  800  60
+</code></pre></div></div>
 
 <p>PAF fields:</p>
 <ol>
@@ -302,15 +234,7 @@ minimap2 <span class="nt">-ax</span> asm10 human_ref.fasta mouse_assembly.fasta 
 <details>
   <summary>Converting between PAF and SAM</summary>
 
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre>  <span class="c"># PAF to SAM (approximate)</span>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># PAF to SAM (approximate)</span>
   minimap2 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> output.sam
   
   <span class="c"># PAF only (faster, less detailed)</span>
@@ -318,7 +242,7 @@ minimap2 <span class="nt">-ax</span> asm10 human_ref.fasta mouse_assembly.fasta 
   
   <span class="c"># Convert existing PAF to SAM using paftools</span>
   paftools.js sam2paf alignments.sam <span class="o">&gt;</span> alignments.paf
-</pre></td></tr></tbody></table></code></pre></div>  </div>
+</code></pre></div>  </div>
 
 </details>
 
@@ -326,49 +250,29 @@ minimap2 <span class="nt">-ax</span> asm10 human_ref.fasta mouse_assembly.fasta 
 
 <h3 id="memory-usage">Memory Usage</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Reduce memory for large genomes</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Reduce memory for large genomes</span>
 minimap2 <span class="nt">-I</span> 8G <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> alignments.sam
 
 <span class="c"># Use multiple threads</span>
 minimap2 <span class="nt">-t</span> 16 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="batch-processing">Batch Processing</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Process multiple files efficiently</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Process multiple files efficiently</span>
 <span class="k">for </span>file <span class="k">in</span> <span class="k">*</span>.fastq<span class="p">;</span> <span class="k">do
     </span>minimap2 <span class="nt">-ax</span> map-ont reference.fasta <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">file</span><span class="p">%.fastq</span><span class="k">}</span><span class="s2">.sam"</span>
 <span class="k">done</span>
 
 <span class="c"># Parallel processing with GNU parallel</span>
 <span class="nb">ls</span> <span class="k">*</span>.fastq | parallel <span class="s2">"minimap2 -ax map-ont reference.fasta {} &gt; {.}.sam"</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="quality-control">Quality Control</h2>
 
 <h3 id="alignment-statistics">Alignment Statistics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c"># Get basic statistics</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get basic statistics</span>
 samtools flagstat alignments.bam
 
 <span class="c"># Alignment length distribution</span>
@@ -376,55 +280,34 @@ samtools view alignments.bam | <span class="nb">awk</span> <span class="s1">'{pr
 
 <span class="c"># Mapping quality distribution</span>
 samtools view alignments.bam | <span class="nb">cut</span> <span class="nt">-f5</span> | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">uniq</span> <span class="nt">-c</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="visualizing-long-read-alignments">Visualizing Long-read Alignments</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Using IGV for visualization</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using IGV for visualization</span>
 samtools <span class="nb">sort </span>alignments.sam <span class="nt">-o</span> sorted.bam
 samtools index sorted.bam
 <span class="c"># Load in IGV</span>
 
 <span class="c"># Using ribbon for assembly comparisons</span>
 ribbon <span class="nt">--ref</span> reference.fasta <span class="nt">--query</span> assembly.fasta <span class="nt">--sam</span> alignments.sam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
 
 <h3 id="low-mapping-rate">Low Mapping Rate</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="c"># Try more sensitive parameters</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Try more sensitive parameters</span>
 minimap2 <span class="nt">-ax</span> map-ont <span class="nt">-k</span> 13 <span class="nt">-w</span> 13 reference.fasta reads.fastq
 
 <span class="c"># Check for adapter contamination</span>
 minimap2 <span class="nt">-ax</span> map-ont <span class="nt">--secondary</span><span class="o">=</span>no reference.fasta reads.fastq | <span class="se">\</span>
   samtools view <span class="nt">-F</span> 4 | <span class="nb">wc</span> <span class="nt">-l</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="high-memory-usage">High Memory Usage</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c"># Reduce batch size</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Reduce batch size</span>
 minimap2 <span class="nt">-I</span> 4G <span class="nt">-K</span> 2G <span class="nt">-ax</span> map-ont reference.fasta reads.fastq
 
 <span class="c"># Process in smaller chunks</span>
@@ -432,32 +315,13 @@ minimap2 <span class="nt">-I</span> 4G <span class="nt">-K</span> 2G <span class
 <span class="k">for </span>chunk <span class="k">in </span>chunk_<span class="k">*</span><span class="p">;</span> <span class="k">do
     </span>minimap2 <span class="nt">-ax</span> map-ont reference.fasta <span class="s2">"</span><span class="nv">$chunk</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> all_alignments.sam
 <span class="k">done</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="integration-with-other-tools">Integration with Other Tools</h2>
 
 <h3 id="minimap2--samtools-pipeline">Minimap2 + Samtools Pipeline</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c"># Complete alignment pipeline</span>
 
 <span class="nv">REFERENCE</span><span class="o">=</span><span class="s2">"reference.fasta"</span>
@@ -476,7 +340,7 @@ samtools flagstat <span class="s2">"</span><span class="k">${</span><span class=
 
 <span class="c"># Generate coverage</span>
 samtools depth <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">.bam"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">_coverage.txt"</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <hr />
 
@@ -548,21 +412,14 @@ samtools depth <span class="s2">"</span><span class="k">${</span><span class="nv
 
 <h3 id="2-speed-metrics">2. Speed Metrics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Measure runtime and memory usage</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Measure runtime and memory usage</span>
 /usr/bin/time <span class="nt">-v</span> mapper_command input.fastq <span class="o">&gt;</span> output.sam
 
 <span class="c"># Key metrics from time output:</span>
 <span class="c"># - Elapsed (wall clock) time</span>
 <span class="c"># - User time (CPU time)  </span>
 <span class="c"># - Maximum resident set size (peak memory)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-alignment-quality-metrics">3. Alignment Quality Metrics</h3>
 
@@ -604,22 +461,7 @@ samtools depth <span class="s2">"</span><span class="k">${</span><span class="nv
 
 <p>Use read simulators to create datasets with known truth:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre><span class="c"># Using ART (Illumina read simulator)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using ART (Illumina read simulator)</span>
 art_illumina <span class="se">\</span>
   <span class="nt">-ss</span> HS25 <span class="se">\</span>
   <span class="nt">-i</span> reference.fasta <span class="se">\</span>
@@ -634,7 +476,7 @@ dwgsim <span class="se">\</span>
   <span class="nt">-2</span> 150 <span class="se">\</span>
   reference.fasta <span class="se">\</span>
   simulated
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-spike-in-controls">2. Spike-in Controls</h3>
 
@@ -683,33 +525,18 @@ dwgsim <span class="se">\</span>
 
 <h3 id="long-read-benchmarks">Long-read Benchmarks</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># PacBio data</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># PacBio data</span>
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/PacBio_MtSinai/
 
 <span class="c"># Oxford Nanopore data  </span>
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NA12878_PacBio_MtSinai/
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="testing-framework-example">Testing Framework Example</h2>
 
 <h3 id="1-set-up-test-environment">1. Set Up Test Environment</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c"># test_mapper.sh</span>
 
 <span class="nv">REFERENCE</span><span class="o">=</span><span class="s2">"reference.fasta"</span>
@@ -719,22 +546,11 @@ wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NA12878_PacBio_MtSin
 
 <span class="c"># Mappers to test</span>
 <span class="nv">MAPPERS</span><span class="o">=(</span><span class="s2">"bwa"</span> <span class="s2">"bowtie2"</span> <span class="s2">"minimap2"</span> <span class="s2">"hisat2"</span><span class="o">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-run-alignments">2. Run Alignments</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># BWA-MEM</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># BWA-MEM</span>
 bwa mem <span class="nt">-t</span> 8 <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> bwa.bam
 samtools index bwa.bam
 
@@ -745,23 +561,11 @@ samtools index bowtie2.bam
 <span class="c"># Minimap2</span>
 minimap2 <span class="nt">-ax</span> sr <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> minimap2.bam
 samtools index minimap2.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-collect-statistics">3. Collect Statistics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="k">for </span>mapper <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MAPPERS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>mapper <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MAPPERS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
     </span><span class="nb">echo</span> <span class="s2">"=== </span><span class="nv">$mapper</span><span class="s2"> ==="</span>
     
     <span class="c"># Basic stats</span>
@@ -773,7 +577,7 @@ samtools index minimap2.bam
     <span class="c"># Insert size distribution (for paired reads)</span>
     samtools view <span class="nt">-f</span> 2 <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>.bam | <span class="nb">cut</span> <span class="nt">-f9</span> | <span class="nb">sort</span> <span class="nt">-n</span> <span class="o">&gt;</span> <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>_insert.txt
 <span class="k">done</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="advanced-evaluation-tools">Advanced Evaluation Tools</h2>
 
@@ -781,53 +585,36 @@ samtools index minimap2.bam
 
 <p>Evaluate alignment accuracy using simulation truth:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Install teaser</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install teaser</span>
 pip <span class="nb">install </span>teaser
 
 <span class="c"># Run evaluation</span>
 teaser <span class="nt">-r</span> reference.fasta <span class="nt">-t</span> truth.sam <span class="nt">-a</span> test.sam <span class="nt">-o</span> results/
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="2-rabema">2. Rabema</h3>
 
 <p>Read alignment benchmark for evaluating mappers:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Build gold standard</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build gold standard</span>
 rabema_build_gold_standard <span class="nt">-r</span> reference.fasta <span class="nt">-s</span> simulated.sam <span class="nt">-o</span> gold.gsi
 
 <span class="c"># Evaluate mapper</span>
 rabema_evaluate <span class="nt">-g</span> gold.gsi <span class="nt">-a</span> test.sam <span class="nt">-o</span> evaluation.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-mason">3. Mason</h3>
 
 <p>Sophisticated read simulator with variant support:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c"># Simulate with variants</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Simulate with variants</span>
 mason_simulator <span class="se">\</span>
   <span class="nt">-ir</span> reference.fasta <span class="se">\</span>
   <span class="nt">-n</span> 1000000 <span class="se">\</span>
   <span class="nt">-o</span> simulated <span class="se">\</span>
   <span class="nt">--illumina-read-length</span> 150 <span class="se">\</span>
   <span class="nt">--fragment-mean-size</span> 300
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="evaluation-checklist">Evaluation Checklist</h2>
 
@@ -879,11 +666,9 @@ mason_simulator <span class="se">\</span>
 </ul>
 
 <h3 id="2-ignoring-parameter-tuning">2. Ignoring Parameter Tuning</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Don't just use defaults - optimize for your data</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Don't just use defaults - optimize for your data</span>
 bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class="nt">-d</span> 100 <span class="nt">-r</span> 1.5 <span class="nt">-A</span> 1 <span class="nt">-B</span> 4 <span class="nt">-O</span> 6 <span class="nt">-E</span> 1 <span class="nt">-L</span> 5 reference.fasta reads.fastq
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="3-not-considering-downstream-analysis">3. Not Considering Downstream Analysis</h3>
 <ul>
@@ -937,23 +722,7 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="visualization">Visualization</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
 <span class="c1"># Create performance comparison plots
@@ -969,7 +738,7 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 </span><span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'mapper'</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">'memory_gb'</span><span class="p">])</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Memory Usage (GB)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Memory Requirements by Mapper'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <hr />
 
@@ -995,17 +764,12 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="header-section">Header Section</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre>@HD	VN:1.6	SO:coordinate
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@HD	VN:1.6	SO:coordinate
 @SQ	SN:chr1	LN:248956422
 @SQ	SN:chr2	LN:242193529
 @RG	ID:sample1	SM:patient_001	PL:ILLUMINA
 @PG	ID:bwa	PN:bwa	VN:0.7.17
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Header line types:</p>
 <ul>
@@ -1100,9 +864,8 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="example-sam-line">Example SAM Line</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCGATCGATCG...	IIIIIIIIIIII...
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCGATCGATCG...	IIIIIIIIIIII...
+</code></pre></div></div>
 
 <h2 id="understanding-sam-flags">Understanding SAM FLAGS</h2>
 
@@ -1262,15 +1025,11 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="cigar-examples">CIGAR Examples</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre>100M        # 100 bases match/mismatch
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100M        # 100 bases match/mismatch
 50M2I48M    # 50 match, 2 insertion, 48 match  
 30M10D70M   # 30 match, 10 deletion, 70 match
 10S90M      # 10 soft-clipped, 90 match
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="mapping-quality-mapq">Mapping Quality (MAPQ)</h2>
 
@@ -1317,27 +1076,7 @@ bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class
 
 <h3 id="basic-samtools-commands">Basic samtools Commands</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-</pre></td><td class="rouge-code"><pre><span class="c"># View SAM file</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># View SAM file</span>
 samtools view alignment.sam
 
 <span class="c"># Convert SAM to BAM</span>
@@ -1357,22 +1096,11 @@ samtools flagstat sorted.bam
 
 <span class="c"># View header only</span>
 samtools view <span class="nt">-H</span> sorted.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="sambam-statistics">SAM/BAM Statistics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># Basic statistics</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Basic statistics</span>
 samtools flagstat input.bam
 
 <span class="c"># Detailed statistics</span>
@@ -1383,22 +1111,10 @@ samtools depth input.bam
 
 <span class="c"># Coverage histogram</span>
 samtools coverage input.bam
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Sample <code class="language-plaintext highlighter-rouge">flagstat</code> output:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre>1000000 + 0 in total (QC-passed reads + QC-failed reads)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1000000 + 0 in total (QC-passed reads + QC-failed reads)
 950000 + 0 primary
 0 + 0 secondary
 50000 + 0 supplementary
@@ -1410,7 +1126,7 @@ samtools coverage input.bam
 940000 + 0 properly paired (94.00% : N/A)
 960000 + 0 with itself and mate mapped
 20000 + 0 singletons (2.00% : N/A)
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="optional-fields-tags">Optional Fields (Tags)</h2>
 
@@ -1460,9 +1176,8 @@ samtools coverage input.bam
 
 <h3 id="example-with-optional-fields">Example with Optional Fields</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCG...	IIII...	NM:i:2	MD:Z:50A25T24	AS:i:190
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READ_001	99	chr1	1000	60	100M	=	1150	250	ATCG...	IIII...	NM:i:2	MD:Z:50A25T24	AS:i:190
+</code></pre></div></div>
 
 <h2 id="best-practices">Best Practices</h2>
 
@@ -1477,25 +1192,7 @@ samtools coverage input.bam
 <details>
   <summary>Common SAM/BAM processing workflow</summary>
 
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre>  <span class="c"># 1. Align reads (using BWA as example)</span>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># 1. Align reads (using BWA as example)</span>
   bwa mem reference.fasta reads_R1.fastq reads_R2.fastq <span class="o">&gt;</span> alignment.sam
   
   <span class="c"># 2. Convert to BAM and sort</span>
@@ -1513,7 +1210,7 @@ samtools coverage input.bam
   
   <span class="c"># 6. Filter by quality (optional)</span>
   samtools view <span class="nt">-q</span> 30 <span class="nt">-b</span> sorted.bam <span class="o">&gt;</span> filtered.bam
-</pre></td></tr></tbody></table></code></pre></div>  </div>
+</code></pre></div>  </div>
 
 </details>
 
@@ -1584,18 +1281,7 @@ samtools coverage input.bam
 
 <h2 id="blast-programs">BLAST Programs</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="c"># DNA sequence vs DNA database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># DNA sequence vs DNA database</span>
 blastn <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
 
 <span class="c"># Protein sequence vs protein database  </span>
@@ -1606,7 +1292,7 @@ blastx <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> 
 
 <span class="c"># Protein sequence vs DNA database (translated)</span>
 tblastn <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="understanding-blast-output">Understanding BLAST Output</h2>
 
@@ -1641,17 +1327,7 @@ tblastn <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</s
 
 <h3 id="sample-blast-hit">Sample BLAST Hit</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre>&gt;gi|123456|ref|NM_000001.1| Homo sapiens gene (GENE1)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;gi|123456|ref|NM_000001.1| Homo sapiens gene (GENE1)
 Length=2000
 
  Score = 85.7 bits (94),  Expect = 2e-16
@@ -1661,7 +1337,7 @@ Length=2000
 Query  1    ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  50
             ||||||||||||||||||||||||||||||||||||||||||||||||
 Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <details>
   <summary>How to interpret E-values?</summary>
@@ -1683,15 +1359,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
 
 <h3 id="common-parameters">Common Parameters</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre>blastn <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blastn <span class="se">\</span>
   <span class="nt">-query</span> input.fasta <span class="se">\</span>
   <span class="nt">-db</span> database_name <span class="se">\</span>
   <span class="nt">-out</span> results.txt <span class="se">\</span>
@@ -1699,7 +1367,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
   <span class="nt">-word_size</span> 11 <span class="se">\ </span>        <span class="c"># Seed length</span>
   <span class="nt">-max_target_seqs</span> 100 <span class="se">\ </span> <span class="c"># Max number of hits</span>
   <span class="nt">-outfmt</span> 6               <span class="c"># Tabular output</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="output-formats">Output Formats</h3>
 
@@ -1740,15 +1408,7 @@ Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
 
 <h2 id="creating-custom-blast-databases">Creating Custom BLAST Databases</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c"># Create nucleotide database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create nucleotide database</span>
 makeblastdb <span class="nt">-in</span> sequences.fasta <span class="nt">-dbtype</span> nucl <span class="nt">-out</span> my_database
 
 <span class="c"># Create protein database  </span>
@@ -1756,30 +1416,24 @@ makeblastdb <span class="nt">-in</span> proteins.fasta <span class="nt">-dbtype<
 
 <span class="c"># Then search against your custom database</span>
 blastn <span class="nt">-query</span> query.fasta <span class="nt">-db</span> my_database <span class="nt">-out</span> results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="blast-command-line-examples">BLAST+ Command Line Examples</h2>
 
 <h3 id="basic-dna-search">Basic DNA Search</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Search nucleotide query against nucleotide database</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Search nucleotide query against nucleotide database</span>
 blastn <span class="nt">-query</span> my_gene.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-out</span> blast_results.txt
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="protein-similarity-search">Protein Similarity Search</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Find similar proteins</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Find similar proteins</span>
 blastp <span class="nt">-query</span> my_protein.fasta <span class="nt">-db</span> nr <span class="nt">-remote</span> <span class="nt">-evalue</span> 1e-10
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="tabular-output-for-parsing">Tabular Output for Parsing</h3>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="c"># Get results in easy-to-parse format</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get results in easy-to-parse format</span>
 blastn <span class="nt">-query</span> sequences.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-outfmt</span> <span class="s2">"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"</span> <span class="nt">-out</span> results.tsv
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="blast-limitations">BLAST Limitations</h2>
 
@@ -1888,25 +1542,13 @@ blastn <span class="nt">-query</span> sequences.fasta <span class="nt">-db</span
 
 <p>Let’s align two DNA sequences:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>Sequence 1: ACGTACGT
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sequence 1: ACGTACGT
 Sequence 2: CGTACG
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="scoring-matrix">Scoring Matrix</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre>    ""  C  G  T  A  C  G
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ""  C  G  T  A  C  G
 ""   0  0  0  0  0  0  0
 A    0  0  0  0  2  1  0
 C    0  2  1  0  1  4  3
@@ -1916,25 +1558,19 @@ A    0  0  2  5  8  7  6
 C    0  2  1  4  7 10  9
 G    0  1  4  3  6  9 12
 T    0  0  3  6  5  8 11
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <details>
   <summary>How is the scoring matrix calculated?</summary>
 
   <p>For each cell (i,j), we calculate:</p>
-  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre>  score[i][j] = max(
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  score[i][j] = max(
       0,                                    // Start new alignment
       score[i-1][j-1] + match_score,      // Diagonal (match/mismatch)
       score[i-1][j] + gap_penalty,        // Up (gap in sequence 2)
       score[i][j-1] + gap_penalty         // Left (gap in sequence 1)
   )
-</pre></td></tr></tbody></table></code></pre></div>  </div>
+</code></pre></div>  </div>
 
 </details>
 
@@ -1942,40 +1578,7 @@ T    0  0  3  6  5  8 11
 
 <p>Here’s a simplified Python implementation:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">smith_waterman</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mismatch</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">smith_waterman</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mismatch</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
     <span class="s">"""
     Simple Smith-Waterman implementation
     """</span>
@@ -2008,7 +1611,7 @@ T    0  0  3  6  5  8 11
                 <span class="n">max_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">score_matrix</span><span class="p">,</span> <span class="n">max_score</span><span class="p">,</span> <span class="n">max_pos</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="advantages-and-limitations">Advantages and Limitations</h2>
 
@@ -2058,17 +1661,12 @@ T    0  0  3  6  5  8 11
 
 <h2 id="try-it-yourself">Try It Yourself</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="c"># Using EMBOSS water tool</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using EMBOSS water tool</span>
 water sequence1.fasta sequence2.fasta <span class="nt">-gapopen</span> 10 <span class="nt">-gapextend</span> 0.5 <span class="nt">-outfile</span> alignment.txt
 
 <span class="c"># Using SSEARCH from FASTA package</span>
 ssearch36 query.fasta database.fasta
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <hr />
 
