@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+                <p>{{ site.description }}</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    {% assign sorted_posts = site.posts | sort: 'date' %}
+                    {% for post in sorted_posts %}
+                    <li>
+                        <a href="{{ post.url | relative_url }}" 
+                           class="nav-link {% if page.url == post.url %}active{% endif %}">
+                            {{ post.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                {{ content }}
+                
+                <!-- Navigation buttons -->
+                {% assign sorted_posts = site.posts | sort: 'date' %}
+                {% if sorted_posts.size > 1 %}
+                <div class="page-navigation">
+                    {% assign prev_post = nil %}
+                    {% assign next_post = nil %}
+                    {% assign current_index = nil %}
+                    
+                    {% for post in sorted_posts %}
+                        {% if post.url == page.url %}
+                            {% assign current_index = forloop.index0 %}
+                            {% break %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if current_index and current_index > 0 %}
+                        {% assign prev_index = current_index | minus: 1 %}
+                        {% assign prev_post = sorted_posts[prev_index] %}
+                    {% endif %}
+                    
+                    {% assign max_index = sorted_posts.size | minus: 1 %}
+                    {% if current_index and current_index < max_index %}
+                        {% assign next_index = current_index | plus: 1 %}
+                        {% assign next_post = sorted_posts[next_index] %}
+                    {% endif %}
+                    
+                    {% if prev_post %}
+                        <a href="{{ prev_post.url | relative_url }}" class="nav-btn prev-btn">
+                            ← {{ prev_post.title }}
+                        </a>
+                    {% endif %}
+                    
+                    {% if next_post %}
+                        <a href="{{ next_post.url | relative_url }}" class="nav-btn next-btn">
+                            {{ next_post.title }} →
+                        </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

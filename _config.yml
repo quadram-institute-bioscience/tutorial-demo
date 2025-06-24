@@ -1,0 +1,46 @@
+# Site settings
+title: "DNA Alignment Tutorial"
+description: "A comprehensive tutorial on DNA sequence alignment techniques and tools"
+baseurl: ""
+url: "https://yourusername.github.io"
+
+# Color scheme - easily configurable
+colors:
+  primary: "#097E74"      # Pine green - main accent color
+  highlight: "#B6BE00"    # Light green - highlighter color
+  text: "#333333"
+  background: "#ffffff"
+  sidebar: "#f8f9fa"
+  border: "#dee2e6"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:title/
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Mappers - DNA Alignment Tutorial</title>
+    <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="/">DNA Alignment Tutorial</a></h1>
+                <p>A comprehensive tutorial on DNA sequence alignment techniques and tools</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    
+                    
+                    <li>
+                        <a href="/introduction/" 
+                           class="nav-link ">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/smith-waterman/" 
+                           class="nav-link ">
+                            Smith-Waterman
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/blast/" 
+                           class="nav-link ">
+                            BLAST
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/sam-format/" 
+                           class="nav-link ">
+                            SAM Format
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/testing-mappers/" 
+                           class="nav-link active">
+                            Testing Mappers
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/minimap2/" 
+                           class="nav-link ">
+                            Minimap2
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1 id="testing-and-evaluating-alignment-mappers">Testing and Evaluating Alignment Mappers</h1>
+
+<p>Not all alignment tools are created equal. Understanding how to evaluate and compare mappers is crucial for choosing the right tool for your analysis and ensuring reliable results.</p>
+
+<h2 id="why-test-mappers">Why Test Mappers?</h2>
+
+<p>Different alignment tools excel in different scenarios:</p>
+<ul>
+  <li><strong>Short reads vs long reads</strong></li>
+  <li><strong>DNA vs RNA sequencing</strong></li>
+  <li><strong>Sensitivity vs speed trade-offs</strong></li>
+  <li><strong>Handling of variants and structural changes</strong></li>
+</ul>
+
+<h2 id="key-performance-metrics">Key Performance Metrics</h2>
+
+<h3 id="1-accuracy-metrics">1. Accuracy Metrics</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Formula</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sensitivity</strong></td>
+      <td>TP/(TP+FN)</td>
+      <td>Fraction of true alignments found</td>
+    </tr>
+    <tr>
+      <td><strong>Precision</strong></td>
+      <td>TP/(TP+FP)</td>
+      <td>Fraction of reported alignments that are correct</td>
+    </tr>
+    <tr>
+      <td><strong>F1-Score</strong></td>
+      <td>2×(Precision×Sensitivity)/(Precision+Sensitivity)</td>
+      <td>Harmonic mean of precision and sensitivity</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Where:</p>
+<ul>
+  <li><strong>TP</strong>: True Positives (correct alignments)</li>
+  <li><strong>FP</strong>: False Positives (incorrect alignments)</li>
+  <li><strong>FN</strong>: False Negatives (missed alignments)</li>
+</ul>
+
+<h3 id="2-speed-metrics">2. Speed Metrics</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># Measure runtime and memory usage</span>
+/usr/bin/time <span class="nt">-v</span> mapper_command input.fastq <span class="o">&gt;</span> output.sam
+
+<span class="c"># Key metrics from time output:</span>
+<span class="c"># - Elapsed (wall clock) time</span>
+<span class="c"># - User time (CPU time)  </span>
+<span class="c"># - Maximum resident set size (peak memory)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-alignment-quality-metrics">3. Alignment Quality Metrics</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Good Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Mapping Rate</strong></td>
+      <td>&gt; 90%</td>
+      <td>Percentage of reads that align</td>
+    </tr>
+    <tr>
+      <td><strong>Properly Paired</strong></td>
+      <td>&gt; 95%</td>
+      <td>Paired reads with expected orientation/distance</td>
+    </tr>
+    <tr>
+      <td><strong>Mean MAPQ</strong></td>
+      <td>&gt; 20</td>
+      <td>Average mapping quality score</td>
+    </tr>
+    <tr>
+      <td><strong>Duplicate Rate</strong></td>
+      <td>&lt; 10%</td>
+      <td>Percentage of PCR/optical duplicates</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="creating-test-datasets">Creating Test Datasets</h2>
+
+<h3 id="1-simulated-data">1. Simulated Data</h3>
+
+<p>Use read simulators to create datasets with known truth:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c"># Using ART (Illumina read simulator)</span>
+art_illumina <span class="se">\</span>
+  <span class="nt">-ss</span> HS25 <span class="se">\</span>
+  <span class="nt">-i</span> reference.fasta <span class="se">\</span>
+  <span class="nt">-l</span> 150 <span class="se">\</span>
+  <span class="nt">-f</span> 20 <span class="se">\</span>
+  <span class="nt">-o</span> simulated_reads
+
+<span class="c"># Using DWGSIM</span>
+dwgsim <span class="se">\</span>
+  <span class="nt">-N</span> 1000000 <span class="se">\</span>
+  <span class="nt">-1</span> 150 <span class="se">\</span>
+  <span class="nt">-2</span> 150 <span class="se">\</span>
+  reference.fasta <span class="se">\</span>
+  simulated
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-spike-in-controls">2. Spike-in Controls</h3>
+
+<p>Add known sequences to your sample:</p>
+<ul>
+  <li><strong>ERCC spike-ins</strong>: External RNA Controls Consortium standards</li>
+  <li><strong>Synthetic DNA constructs</strong>: Custom designed sequences</li>
+  <li><strong>PhiX</strong>: Illumina control library</li>
+</ul>
+
+<h2 id="benchmark-datasets">Benchmark Datasets</h2>
+
+<h3 id="standard-benchmarks">Standard Benchmarks</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dataset</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>NA12878</strong></td>
+      <td>Human WGS</td>
+      <td>Well-characterized human genome</td>
+    </tr>
+    <tr>
+      <td><strong>HG002</strong></td>
+      <td>Human WGS</td>
+      <td>GIAB high-confidence calls</td>
+    </tr>
+    <tr>
+      <td><strong>SEQC</strong></td>
+      <td>RNA-seq</td>
+      <td>Reference RNA samples</td>
+    </tr>
+    <tr>
+      <td><strong>MAQC</strong></td>
+      <td>Microarray/RNA-seq</td>
+      <td>Cross-platform validation</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="long-read-benchmarks">Long-read Benchmarks</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># PacBio data</span>
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/PacBio_MtSinai/
+
+<span class="c"># Oxford Nanopore data  </span>
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NA12878_PacBio_MtSinai/
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="testing-framework-example">Testing Framework Example</h2>
+
+<h3 id="1-set-up-test-environment">1. Set Up Test Environment</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># test_mapper.sh</span>
+
+<span class="nv">REFERENCE</span><span class="o">=</span><span class="s2">"reference.fasta"</span>
+<span class="nv">READS_R1</span><span class="o">=</span><span class="s2">"test_R1.fastq"</span>
+<span class="nv">READS_R2</span><span class="o">=</span><span class="s2">"test_R2.fastq"</span>
+<span class="nv">TRUTH_BAM</span><span class="o">=</span><span class="s2">"truth.bam"</span>  <span class="c"># Known correct alignments</span>
+
+<span class="c"># Mappers to test</span>
+<span class="nv">MAPPERS</span><span class="o">=(</span><span class="s2">"bwa"</span> <span class="s2">"bowtie2"</span> <span class="s2">"minimap2"</span> <span class="s2">"hisat2"</span><span class="o">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-run-alignments">2. Run Alignments</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># BWA-MEM</span>
+bwa mem <span class="nt">-t</span> 8 <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> bwa.bam
+samtools index bwa.bam
+
+<span class="c"># Bowtie2</span>
+bowtie2 <span class="nt">-x</span> reference_index <span class="nt">-1</span> <span class="nv">$READS_R1</span> <span class="nt">-2</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> bowtie2.bam
+samtools index bowtie2.bam
+
+<span class="c"># Minimap2</span>
+minimap2 <span class="nt">-ax</span> sr <span class="nv">$REFERENCE</span> <span class="nv">$READS_R1</span> <span class="nv">$READS_R2</span> | samtools <span class="nb">sort</span> <span class="nt">-o</span> minimap2.bam
+samtools index minimap2.bam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-collect-statistics">3. Collect Statistics</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">for </span>mapper <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MAPPERS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"=== </span><span class="nv">$mapper</span><span class="s2"> ==="</span>
+    
+    <span class="c"># Basic stats</span>
+    samtools flagstat <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>.bam
+    
+    <span class="c"># Mapping quality distribution</span>
+    samtools view <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>.bam | <span class="nb">cut</span> <span class="nt">-f5</span> | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">uniq</span> <span class="nt">-c</span> <span class="o">&gt;</span> <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>_mapq.txt
+    
+    <span class="c"># Insert size distribution (for paired reads)</span>
+    samtools view <span class="nt">-f</span> 2 <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>.bam | <span class="nb">cut</span> <span class="nt">-f9</span> | <span class="nb">sort</span> <span class="nt">-n</span> <span class="o">&gt;</span> <span class="k">${</span><span class="nv">mapper</span><span class="k">}</span>_insert.txt
+<span class="k">done</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="advanced-evaluation-tools">Advanced Evaluation Tools</h2>
+
+<h3 id="1-teaser">1. Teaser</h3>
+
+<p>Evaluate alignment accuracy using simulation truth:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Install teaser</span>
+pip <span class="nb">install </span>teaser
+
+<span class="c"># Run evaluation</span>
+teaser <span class="nt">-r</span> reference.fasta <span class="nt">-t</span> truth.sam <span class="nt">-a</span> test.sam <span class="nt">-o</span> results/
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-rabema">2. Rabema</h3>
+
+<p>Read alignment benchmark for evaluating mappers:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Build gold standard</span>
+rabema_build_gold_standard <span class="nt">-r</span> reference.fasta <span class="nt">-s</span> simulated.sam <span class="nt">-o</span> gold.gsi
+
+<span class="c"># Evaluate mapper</span>
+rabema_evaluate <span class="nt">-g</span> gold.gsi <span class="nt">-a</span> test.sam <span class="nt">-o</span> evaluation.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-mason">3. Mason</h3>
+
+<p>Sophisticated read simulator with variant support:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># Simulate with variants</span>
+mason_simulator <span class="se">\</span>
+  <span class="nt">-ir</span> reference.fasta <span class="se">\</span>
+  <span class="nt">-n</span> 1000000 <span class="se">\</span>
+  <span class="nt">-o</span> simulated <span class="se">\</span>
+  <span class="nt">--illumina-read-length</span> 150 <span class="se">\</span>
+  <span class="nt">--fragment-mean-size</span> 300
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="evaluation-checklist">Evaluation Checklist</h2>
+
+<details>
+  <summary>Comprehensive mapper evaluation checklist</summary>
+
+  <p><strong>Accuracy Assessment:</strong></p>
+  <ul class="task-list">
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test on simulated data with known truth</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Measure sensitivity and precision</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Evaluate on different read lengths</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test with various error rates</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assess handling of variants/indels</li>
+  </ul>
+
+  <p><strong>Performance Assessment:</strong></p>
+  <ul class="task-list">
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Measure wall-clock time</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Monitor memory usage</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test scalability with different data sizes</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Evaluate multi-threading efficiency</li>
+  </ul>
+
+  <p><strong>Robustness Testing:</strong></p>
+  <ul class="task-list">
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test with poor quality reads</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Evaluate with contaminated samples</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test with repetitive sequences</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assess handling of edge cases</li>
+  </ul>
+
+  <p><strong>Practical Considerations:</strong></p>
+  <ul class="task-list">
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Installation and setup difficulty</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Documentation quality</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Output format compatibility</li>
+    <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Parameter sensitivity analysis</li>
+  </ul>
+
+</details>
+
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+
+<h3 id="1-overfitting-to-benchmarks">1. Overfitting to Benchmarks</h3>
+<ul>
+  <li>Don’t optimize only for standard benchmarks</li>
+  <li>Test on your actual data types</li>
+  <li>Consider your specific use case</li>
+</ul>
+
+<h3 id="2-ignoring-parameter-tuning">2. Ignoring Parameter Tuning</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># Don't just use defaults - optimize for your data</span>
+bwa mem <span class="nt">-k</span> 19 <span class="nt">-w</span> 100 <span class="nt">-d</span> 100 <span class="nt">-r</span> 1.5 <span class="nt">-A</span> 1 <span class="nt">-B</span> 4 <span class="nt">-O</span> 6 <span class="nt">-E</span> 1 <span class="nt">-L</span> 5 reference.fasta reads.fastq
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-not-considering-downstream-analysis">3. Not Considering Downstream Analysis</h3>
+<ul>
+  <li>Consider how alignment affects variant calling</li>
+  <li>Evaluate impact on gene expression quantification</li>
+  <li>Test compatibility with analysis pipelines</li>
+</ul>
+
+<h2 id="reporting-results">Reporting Results</h2>
+
+<h3 id="performance-summary-table">Performance Summary Table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mapper</th>
+      <th>Mapping Rate</th>
+      <th>Properly Paired</th>
+      <th>Mean MAPQ</th>
+      <th>Runtime (min)</th>
+      <th>Memory (GB)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BWA-MEM</td>
+      <td>94.2%</td>
+      <td>91.8%</td>
+      <td>35.2</td>
+      <td>45</td>
+      <td>8.2</td>
+    </tr>
+    <tr>
+      <td>Bowtie2</td>
+      <td>93.8%</td>
+      <td>90.5%</td>
+      <td>32.1</td>
+      <td>52</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <td>Minimap2</td>
+      <td>95.1%</td>
+      <td>92.3%</td>
+      <td>38.7</td>
+      <td>18</td>
+      <td>12.5</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="visualization">Visualization</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="c1"># Create performance comparison plots
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'mapper_results.csv'</span><span class="p">)</span>
+
+<span class="c1"># Speed vs accuracy plot
+</span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'runtime'</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Runtime (minutes)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Accuracy (%)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Mapper Performance Comparison'</span><span class="p">)</span>
+
+<span class="c1"># Memory usage comparison
+</span><span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'mapper'</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s">'memory_gb'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Memory Usage (GB)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Memory Requirements by Mapper'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<p>Understanding mapper performance helps you choose the right tool for your specific needs. Next, we’ll explore Minimap2, a versatile modern aligner that excels with long reads and various data types.</p>
+
+                
+                <!-- Navigation buttons -->
+                
+                
+                <div class="page-navigation">
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <a href="/sam-format/" class="nav-btn prev-btn">
+                            ← SAM Format
+                        </a>
+                    
+                    
+                    
+                        <a href="/minimap2/" class="nav-btn next-btn">
+                            Minimap2 →
+                        </a>
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

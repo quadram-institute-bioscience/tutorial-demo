@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAST - DNA Alignment Tutorial</title>
+    <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="/">DNA Alignment Tutorial</a></h1>
+                <p>A comprehensive tutorial on DNA sequence alignment techniques and tools</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    
+                    
+                    <li>
+                        <a href="/introduction/" 
+                           class="nav-link ">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/smith-waterman/" 
+                           class="nav-link ">
+                            Smith-Waterman
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/blast/" 
+                           class="nav-link active">
+                            BLAST
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/sam-format/" 
+                           class="nav-link ">
+                            SAM Format
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/testing-mappers/" 
+                           class="nav-link ">
+                            Testing Mappers
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/minimap2/" 
+                           class="nav-link ">
+                            Minimap2
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1 id="blast-basic-local-alignment-search-tool">BLAST: Basic Local Alignment Search Tool</h1>
+
+<p>BLAST revolutionized bioinformatics by making database searches practical. Instead of using the slow but optimal Smith-Waterman algorithm, BLAST uses clever heuristics to achieve speed while maintaining good sensitivity.</p>
+
+<h2 id="blast-philosophy">BLAST Philosophy</h2>
+
+<blockquote>
+  <p>“Good enough, fast enough” - BLAST trades some sensitivity for dramatic speed improvements</p>
+</blockquote>
+
+<h2 id="how-blast-works">How BLAST Works</h2>
+
+<h3 id="1-seed-and-extend-strategy">1. Seed and Extend Strategy</h3>
+
+<p>BLAST uses a <strong>seed and extend</strong> approach:</p>
+
+<ol>
+  <li><strong>Find seeds</strong>: Short exact matches (words) between query and database</li>
+  <li><strong>Extend seeds</strong>: Grow alignments from seeds in both directions</li>
+  <li><strong>Evaluate alignments</strong>: Score and rank the resulting alignments</li>
+</ol>
+
+<h3 id="2-word-size">2. Word Size</h3>
+
+<p>Different BLAST programs use different word sizes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Program</th>
+      <th>Word Size</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>blastn</td>
+      <td>11</td>
+      <td>DNA vs DNA</td>
+    </tr>
+    <tr>
+      <td>blastp</td>
+      <td>3</td>
+      <td>Protein vs Protein</td>
+    </tr>
+    <tr>
+      <td>blastx</td>
+      <td>3</td>
+      <td>DNA vs Protein (translated)</td>
+    </tr>
+    <tr>
+      <td>tblastn</td>
+      <td>3</td>
+      <td>Protein vs DNA (translated)</td>
+    </tr>
+    <tr>
+      <td>tblastx</td>
+      <td>3</td>
+      <td>Translated DNA vs Translated DNA</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="blast-programs">BLAST Programs</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># DNA sequence vs DNA database</span>
+blastn <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
+
+<span class="c"># Protein sequence vs protein database  </span>
+blastp <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</span> nr <span class="nt">-out</span> results.txt
+
+<span class="c"># DNA sequence vs protein database (6-frame translation)</span>
+blastx <span class="nt">-query</span> dna_seq.fasta <span class="nt">-db</span> nr <span class="nt">-out</span> results.txt
+
+<span class="c"># Protein sequence vs DNA database (translated)</span>
+tblastn <span class="nt">-query</span> protein_seq.fasta <span class="nt">-db</span> nt <span class="nt">-out</span> results.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="understanding-blast-output">Understanding BLAST Output</h2>
+
+<h3 id="key-statistics">Key Statistics</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Statistic</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>E-value</strong></td>
+      <td>Expected number of hits by chance</td>
+    </tr>
+    <tr>
+      <td><strong>Bit Score</strong></td>
+      <td>Normalized alignment score</td>
+    </tr>
+    <tr>
+      <td><strong>Identity</strong></td>
+      <td>Percentage of identical matches</td>
+    </tr>
+    <tr>
+      <td><strong>Coverage</strong></td>
+      <td>Percentage of query aligned</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="sample-blast-hit">Sample BLAST Hit</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>&gt;gi|123456|ref|NM_000001.1| Homo sapiens gene (GENE1)
+Length=2000
+
+ Score = 85.7 bits (94),  Expect = 2e-16
+ Identities = 47/50 (94%), Gaps = 0/50 (0%)
+ Strand=Plus/Plus
+
+Query  1    ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  50
+            ||||||||||||||||||||||||||||||||||||||||||||||||
+Sbjct  100  ATGCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT  149
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<details>
+  <summary>How to interpret E-values?</summary>
+
+  <p><strong>E-value (Expected value)</strong> represents the number of hits you’d expect to see by chance in a database of this size.</p>
+
+  <ul>
+    <li><strong>E &lt; 0.01</strong>: Highly significant</li>
+    <li><strong>0.01 &lt; E &lt; 0.1</strong>: Possibly significant</li>
+    <li><strong>0.1 &lt; E &lt; 1</strong>: Marginally significant</li>
+    <li><strong>E &gt; 1</strong>: Probably not significant</li>
+  </ul>
+
+  <p>Example: E-value = 2e-16 means you’d expect to see this match by chance only once in 5×10¹⁵ searches!</p>
+
+</details>
+
+<h2 id="optimizing-blast-searches">Optimizing BLAST Searches</h2>
+
+<h3 id="common-parameters">Common Parameters</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>blastn <span class="se">\</span>
+  <span class="nt">-query</span> input.fasta <span class="se">\</span>
+  <span class="nt">-db</span> database_name <span class="se">\</span>
+  <span class="nt">-out</span> results.txt <span class="se">\</span>
+  <span class="nt">-evalue</span> 1e-5 <span class="se">\ </span>         <span class="c"># E-value threshold</span>
+  <span class="nt">-word_size</span> 11 <span class="se">\ </span>        <span class="c"># Seed length</span>
+  <span class="nt">-max_target_seqs</span> 100 <span class="se">\ </span> <span class="c"># Max number of hits</span>
+  <span class="nt">-outfmt</span> 6               <span class="c"># Tabular output</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="output-formats">Output Formats</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Format</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Default pairwise</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Tabular</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Tabular with comments</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Tabular (no comments)</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>CSV</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>BLAST archive (ASN.1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="creating-custom-blast-databases">Creating Custom BLAST Databases</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># Create nucleotide database</span>
+makeblastdb <span class="nt">-in</span> sequences.fasta <span class="nt">-dbtype</span> nucl <span class="nt">-out</span> my_database
+
+<span class="c"># Create protein database  </span>
+makeblastdb <span class="nt">-in</span> proteins.fasta <span class="nt">-dbtype</span> prot <span class="nt">-out</span> protein_db
+
+<span class="c"># Then search against your custom database</span>
+blastn <span class="nt">-query</span> query.fasta <span class="nt">-db</span> my_database <span class="nt">-out</span> results.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="blast-command-line-examples">BLAST+ Command Line Examples</h2>
+
+<h3 id="basic-dna-search">Basic DNA Search</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># Search nucleotide query against nucleotide database</span>
+blastn <span class="nt">-query</span> my_gene.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-out</span> blast_results.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="protein-similarity-search">Protein Similarity Search</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># Find similar proteins</span>
+blastp <span class="nt">-query</span> my_protein.fasta <span class="nt">-db</span> nr <span class="nt">-remote</span> <span class="nt">-evalue</span> 1e-10
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="tabular-output-for-parsing">Tabular Output for Parsing</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># Get results in easy-to-parse format</span>
+blastn <span class="nt">-query</span> sequences.fasta <span class="nt">-db</span> nt <span class="nt">-remote</span> <span class="nt">-outfmt</span> <span class="s2">"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"</span> <span class="nt">-out</span> results.tsv
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="blast-limitations">BLAST Limitations</h2>
+
+<h3 id="speed-vs-sensitivity-trade-off">Speed vs Sensitivity Trade-off</h3>
+<ul>
+  <li><strong>Fast but may miss</strong>: Distant homologs with low similarity</li>
+  <li><strong>Heuristic approach</strong>: Not guaranteed to find optimal alignment</li>
+  <li><strong>Word-based</strong>: Requires exact word matches to initiate alignment</li>
+</ul>
+
+<h3 id="when-blast-struggles">When BLAST Struggles</h3>
+<ul>
+  <li>Very short sequences (&lt; 50 bp)</li>
+  <li>Highly repetitive sequences</li>
+  <li>Very divergent sequences</li>
+  <li>Sequences with many gaps</li>
+</ul>
+
+<details>
+  <summary>BLAST alternatives for challenging cases</summary>
+
+  <p>When BLAST isn’t sensitive enough:</p>
+
+  <ul>
+    <li><strong>PSI-BLAST</strong>: Position-specific scoring for distant homologs</li>
+    <li><strong>HMMER</strong>: Profile-based searches using Hidden Markov Models</li>
+    <li><strong>DIAMOND</strong>: Ultra-fast protein aligner</li>
+    <li><strong>MMseqs2</strong>: Ultra-fast sequence clustering and searching</li>
+    <li><strong>SSEARCH</strong>: Smith-Waterman for maximum sensitivity</li>
+  </ul>
+
+</details>
+
+<h2 id="web-vs-command-line-blast">Web vs Command Line BLAST</h2>
+
+<h3 id="ncbi-web-blast">NCBI Web BLAST</h3>
+<ul>
+  <li>Easy to use interface</li>
+  <li>Access to constantly updated databases</li>
+  <li>Limited customization</li>
+  <li>Rate limited</li>
+</ul>
+
+<h3 id="command-line-blast">Command Line BLAST+</h3>
+<ul>
+  <li>Full control over parameters</li>
+  <li>Can create custom databases</li>
+  <li>Batch processing</li>
+  <li>No rate limits on local databases</li>
+</ul>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ol>
+  <li><strong>Choose appropriate E-value</strong>: Start with 1e-5, adjust based on results</li>
+  <li><strong>Use appropriate program</strong>: blastn for DNA-DNA, blastp for protein-protein</li>
+  <li><strong>Consider your database</strong>: Use targeted databases when possible</li>
+  <li><strong>Filter low complexity</strong>: Use <code class="language-plaintext highlighter-rouge">-dust yes</code> for DNA, <code class="language-plaintext highlighter-rouge">-seg yes</code> for proteins</li>
+  <li><strong>Parse results programmatically</strong>: Use tabular output formats</li>
+</ol>
+
+<hr />
+
+<p>Understanding BLAST output is crucial for bioinformatics analysis. Next, we’ll explore the SAM format, the standard for storing alignment results from modern sequencing data.</p>
+
+                
+                <!-- Navigation buttons -->
+                
+                
+                <div class="page-navigation">
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <a href="/smith-waterman/" class="nav-btn prev-btn">
+                            ← Smith-Waterman
+                        </a>
+                    
+                    
+                    
+                        <a href="/sam-format/" class="nav-btn next-btn">
+                            SAM Format →
+                        </a>
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

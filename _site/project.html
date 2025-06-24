@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A jekyll template for a bioinformatics tutorial - DNA Alignment Tutorial</title>
+    <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="/">DNA Alignment Tutorial</a></h1>
+                <p>A comprehensive tutorial on DNA sequence alignment techniques and tools</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    
+                    
+                    <li>
+                        <a href="/introduction/" 
+                           class="nav-link ">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/smith-waterman/" 
+                           class="nav-link ">
+                            Smith-Waterman
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/blast/" 
+                           class="nav-link ">
+                            BLAST
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/sam-format/" 
+                           class="nav-link ">
+                            SAM Format
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/testing-mappers/" 
+                           class="nav-link ">
+                            Testing Mappers
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/minimap2/" 
+                           class="nav-link ">
+                            Minimap2
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1 id="a-jekyll-template-for-a-bioinformatics-tutorial">A jekyll template for a bioinformatics tutorial</h1>
+
+<p>Generate a template for a multi-page tutorial that will be used to deliver bioinformatics training</p>
+
+<p>This template will be rendered by Github pages</p>
+
+<p>Maximise compatibility, reduce dependency on third party plugins</p>
+
+<p>Required features:</p>
+
+<ul>
+  <li>The tutorial is based on a set of markdown files, in a specific order. For simplicity let’s use _posts/YYYY-MM-DD_title.md, but we will ignore the actual date and just use it to sort the pages</li>
+  <li>Left navigation will show the list of pages and highlight the current one.</li>
+  <li>Support for code blocks and syntax highlighting is essential</li>
+  <li>Tables must be nicely formatted with thin gray cell borders to increase readability</li>
+  <li>Support for collapsible blocks (i.e. solutions to questions) that will be collapsed by default. For example native github markdown supports this:
+“””</li>
+</ul>
+<details>
+  <summary>What is this script doing?</summary>
+  
+  The script will:
+  1. Check you are on an EBAME VM
+  2. Install some packages with apt, including `visidata` is a tool to visualise tabular data (tsv, csv).
+  3. Install a configuration profile for GNU Screen
+  4. Make a `$VIROME` variable to quickly find our data
+
+</details>
+<p>”””</p>
+
+<p>Use reponsive design, widely available fonts.</p>
+
+                
+                <!-- Navigation buttons -->
+                
+                
+                <div class="page-navigation">
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

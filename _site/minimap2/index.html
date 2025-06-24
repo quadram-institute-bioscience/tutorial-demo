@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimap2 - DNA Alignment Tutorial</title>
+    <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="/">DNA Alignment Tutorial</a></h1>
+                <p>A comprehensive tutorial on DNA sequence alignment techniques and tools</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    
+                    
+                    <li>
+                        <a href="/introduction/" 
+                           class="nav-link ">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/smith-waterman/" 
+                           class="nav-link ">
+                            Smith-Waterman
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/blast/" 
+                           class="nav-link ">
+                            BLAST
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/sam-format/" 
+                           class="nav-link ">
+                            SAM Format
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/testing-mappers/" 
+                           class="nav-link ">
+                            Testing Mappers
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/minimap2/" 
+                           class="nav-link active">
+                            Minimap2
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1 id="minimap2-a-versatile-long-read-aligner">Minimap2: A Versatile Long-Read Aligner</h1>
+
+<p>Minimap2 is a modern, versatile sequence alignment tool designed for the era of long-read sequencing. Developed by Heng Li, it’s fast, accurate, and handles diverse sequence types from short Illumina reads to ultra-long Oxford Nanopore reads.</p>
+
+<h2 id="why-minimap2">Why Minimap2?</h2>
+
+<p>Traditional aligners like BWA were designed for short, accurate reads. Minimap2 addresses the challenges of:</p>
+<ul>
+  <li><strong>Long reads</strong> (PacBio, Oxford Nanopore)</li>
+  <li><strong>High error rates</strong> (10-15% for Nanopore)</li>
+  <li><strong>Structural variations</strong> and complex rearrangements</li>
+  <li><strong>Speed</strong> requirements for large datasets</li>
+</ul>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Versatile</strong>: Works with DNA, RNA, and assembly-to-reference alignment</li>
+  <li><strong>Fast</strong>: Linear time complexity</li>
+  <li><strong>Accurate</strong>: Optimized for high-error long reads</li>
+  <li><strong>Flexible</strong>: Many preset configurations for different data types</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># Using conda (recommended)</span>
+conda <span class="nb">install</span> <span class="nt">-c</span> bioconda minimap2
+
+<span class="c"># Using package managers</span>
+apt-get <span class="nb">install </span>minimap2  <span class="c"># Ubuntu/Debian</span>
+brew <span class="nb">install </span>minimap2     <span class="c"># macOS</span>
+
+<span class="c"># From source</span>
+git clone https://github.com/lh3/minimap2
+<span class="nb">cd </span>minimap2 <span class="o">&amp;&amp;</span> make
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="basic-usage">Basic Usage</h2>
+
+<h3 id="alignment-presets">Alignment Presets</h3>
+
+<p>Minimap2 uses presets optimized for different data types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Preset</th>
+      <th>Data Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">map-pb</code></td>
+      <td>PacBio reads</td>
+      <td>CLR reads to reference</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">map-ont</code></td>
+      <td>Oxford Nanopore</td>
+      <td>Nanopore reads to reference</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">asm5</code></td>
+      <td>Assembly</td>
+      <td>Intra-species assembly alignment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">asm10</code></td>
+      <td>Assembly</td>
+      <td>Inter-species assembly alignment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">asm20</code></td>
+      <td>Assembly</td>
+      <td>Distant assembly alignment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sr</code></td>
+      <td>Short reads</td>
+      <td>Illumina short reads</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">splice</code></td>
+      <td>RNA-seq</td>
+      <td>Spliced alignment for transcripts</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="basic-commands">Basic Commands</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># PacBio reads to reference</span>
+minimap2 <span class="nt">-ax</span> map-pb reference.fasta pacbio_reads.fastq <span class="o">&gt;</span> alignments.sam
+
+<span class="c"># Oxford Nanopore reads</span>
+minimap2 <span class="nt">-ax</span> map-ont reference.fasta nanopore_reads.fastq <span class="o">&gt;</span> alignments.sam
+
+<span class="c"># Short reads (Illumina)</span>
+minimap2 <span class="nt">-ax</span> sr reference.fasta reads_R1.fastq reads_R2.fastq <span class="o">&gt;</span> alignments.sam
+
+<span class="c"># RNA-seq with splicing</span>
+minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <span class="o">&gt;</span> alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="understanding-minimap2-algorithm">Understanding Minimap2 Algorithm</h2>
+
+<h3 id="1-minimizer-based-seeding">1. Minimizer-based Seeding</h3>
+
+<p>Instead of exact k-mers, Minimap2 uses <strong>minimizers</strong>:</p>
+<ul>
+  <li>Reduces memory usage</li>
+  <li>More tolerant of sequencing errors</li>
+  <li>Faster seed finding</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1"># Conceptual minimizer example
+</span><span class="k">def</span> <span class="nf">minimizers</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="s">"""Find minimizers in sequence"""</span>
+    <span class="n">minimizers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">-</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">w</span><span class="p">]</span>
+        <span class="n">kmers</span> <span class="o">=</span> <span class="p">[</span><span class="n">window</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="n">minimizer</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">kmers</span><span class="p">)</span>  <span class="c1"># Lexicographically smallest
+</span>        <span class="n">minimizers</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">minimizer</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">minimizers</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-chaining">2. Chaining</h3>
+
+<p>Links compatible seed matches into chains:</p>
+<ul>
+  <li>Accounts for large gaps (deletions, introns)</li>
+  <li>Handles rearrangements</li>
+  <li>Finds optimal alignment path</li>
+</ul>
+
+<h3 id="3-base-level-alignment">3. Base-level Alignment</h3>
+
+<p>Uses modified Smith-Waterman for final alignment:</p>
+<ul>
+  <li>Optimized for high error rates</li>
+  <li>Handles long insertions/deletions</li>
+  <li>Produces detailed CIGAR strings</li>
+</ul>
+
+<h2 id="advanced-usage">Advanced Usage</h2>
+
+<h3 id="custom-parameters">Custom Parameters</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># Adjust sensitivity and speed</span>
+minimap2 <span class="se">\</span>
+  <span class="nt">-k</span> 15 <span class="se">\ </span>          <span class="c"># k-mer size</span>
+  <span class="nt">-w</span> 10 <span class="se">\ </span>          <span class="c"># minimizer window size  </span>
+  <span class="nt">-A</span> 2 <span class="se">\ </span>           <span class="c"># match score</span>
+  <span class="nt">-B</span> 4 <span class="se">\ </span>           <span class="c"># mismatch penalty</span>
+  <span class="nt">-O</span> 4,24 <span class="se">\ </span>        <span class="c"># gap open penalty</span>
+  <span class="nt">-E</span> 2,1 <span class="se">\ </span>         <span class="c"># gap extension penalty</span>
+  <span class="nt">-ax</span> map-ont <span class="se">\</span>
+  reference.fasta reads.fastq
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="output-formats">Output Formats</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># PAF format (Pairwise mApping Format)</span>
+minimap2 reference.fasta reads.fastq <span class="o">&gt;</span> alignments.paf
+
+<span class="c"># SAM format with detailed alignment</span>
+minimap2 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> alignments.sam
+
+<span class="c"># Output only coordinates (faster)</span>
+minimap2 <span class="nt">-c</span> reference.fasta reads.fastq <span class="o">&gt;</span> alignments.paf
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="working-with-different-data-types">Working with Different Data Types</h2>
+
+<h3 id="1-pacbio-hifi-ccs-reads">1. PacBio HiFi (CCS) Reads</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># High-accuracy PacBio reads</span>
+minimap2 <span class="nt">-ax</span> map-hifi reference.fasta hifi_reads.fastq <span class="o">&gt;</span> hifi_alignments.sam
+
+<span class="c"># Alternative with specific parameters</span>
+minimap2 <span class="nt">-ax</span> asm20 <span class="nt">-k</span> 19 <span class="nt">-w</span> 19 <span class="nt">-A</span> 1 <span class="nt">-B</span> 19 <span class="nt">-O</span> 39,81 <span class="nt">-E</span> 3,1 <span class="se">\</span>
+  reference.fasta hifi_reads.fastq <span class="o">&gt;</span> hifi_alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-ultra-long-nanopore-reads">2. Ultra-long Nanopore Reads</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># For very long reads (&gt;100kb)</span>
+minimap2 <span class="nt">-ax</span> map-ont <span class="nt">-k</span> 17 <span class="nt">-w</span> 17 reference.fasta ultralong_reads.fastq <span class="o">&gt;</span> alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-rna-seq-data">3. RNA-seq Data</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Splice-aware alignment</span>
+minimap2 <span class="nt">-ax</span> splice reference.fasta rna_reads.fastq <span class="o">&gt;</span> rna_alignments.sam
+
+<span class="c"># For noisy long-read RNA-seq</span>
+minimap2 <span class="nt">-ax</span> splice <span class="nt">-uf</span> <span class="nt">-k</span> 14 reference.fasta nanopore_rna.fastq <span class="o">&gt;</span> alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="4-assembly-to-reference">4. Assembly-to-Reference</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Compare assemblies</span>
+minimap2 <span class="nt">-ax</span> asm5 reference.fasta assembly.fasta <span class="o">&gt;</span> assembly_alignment.sam
+
+<span class="c"># Cross-species comparison</span>
+minimap2 <span class="nt">-ax</span> asm10 human_ref.fasta mouse_assembly.fasta <span class="o">&gt;</span> cross_species.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="paf-format">PAF Format</h2>
+
+<p>Minimap2’s native PAF format is simpler than SAM:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>read1  1000  100  900   +  chr1  5000000  1000000  1000750  750  800  60
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>PAF fields:</p>
+<ol>
+  <li>Query name</li>
+  <li>Query length</li>
+  <li>Query start (0-based)</li>
+  <li>Query end</li>
+  <li>Strand (+ or -)</li>
+  <li>Target name</li>
+  <li>Target length</li>
+  <li>Target start</li>
+  <li>Target end</li>
+  <li>Number of matches</li>
+  <li>Alignment block length</li>
+  <li>Mapping quality</li>
+</ol>
+
+<details>
+  <summary>Converting between PAF and SAM</summary>
+
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>  <span class="c"># PAF to SAM (approximate)</span>
+  minimap2 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> output.sam
+  
+  <span class="c"># PAF only (faster, less detailed)</span>
+  minimap2 reference.fasta reads.fastq <span class="o">&gt;</span> output.paf
+  
+  <span class="c"># Convert existing PAF to SAM using paftools</span>
+  paftools.js sam2paf alignments.sam <span class="o">&gt;</span> alignments.paf
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+
+</details>
+
+<h2 id="performance-optimization">Performance Optimization</h2>
+
+<h3 id="memory-usage">Memory Usage</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Reduce memory for large genomes</span>
+minimap2 <span class="nt">-I</span> 8G <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> alignments.sam
+
+<span class="c"># Use multiple threads</span>
+minimap2 <span class="nt">-t</span> 16 <span class="nt">-ax</span> map-ont reference.fasta reads.fastq <span class="o">&gt;</span> alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="batch-processing">Batch Processing</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># Process multiple files efficiently</span>
+<span class="k">for </span>file <span class="k">in</span> <span class="k">*</span>.fastq<span class="p">;</span> <span class="k">do
+    </span>minimap2 <span class="nt">-ax</span> map-ont reference.fasta <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">file</span><span class="p">%.fastq</span><span class="k">}</span><span class="s2">.sam"</span>
+<span class="k">done</span>
+
+<span class="c"># Parallel processing with GNU parallel</span>
+<span class="nb">ls</span> <span class="k">*</span>.fastq | parallel <span class="s2">"minimap2 -ax map-ont reference.fasta {} &gt; {.}.sam"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="quality-control">Quality Control</h2>
+
+<h3 id="alignment-statistics">Alignment Statistics</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># Get basic statistics</span>
+samtools flagstat alignments.bam
+
+<span class="c"># Alignment length distribution</span>
+samtools view alignments.bam | <span class="nb">awk</span> <span class="s1">'{print length($10)}'</span> | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">uniq</span> <span class="nt">-c</span>
+
+<span class="c"># Mapping quality distribution</span>
+samtools view alignments.bam | <span class="nb">cut</span> <span class="nt">-f5</span> | <span class="nb">sort</span> <span class="nt">-n</span> | <span class="nb">uniq</span> <span class="nt">-c</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="visualizing-long-read-alignments">Visualizing Long-read Alignments</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># Using IGV for visualization</span>
+samtools <span class="nb">sort </span>alignments.sam <span class="nt">-o</span> sorted.bam
+samtools index sorted.bam
+<span class="c"># Load in IGV</span>
+
+<span class="c"># Using ribbon for assembly comparisons</span>
+ribbon <span class="nt">--ref</span> reference.fasta <span class="nt">--query</span> assembly.fasta <span class="nt">--sam</span> alignments.sam
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+
+<h3 id="low-mapping-rate">Low Mapping Rate</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># Try more sensitive parameters</span>
+minimap2 <span class="nt">-ax</span> map-ont <span class="nt">-k</span> 13 <span class="nt">-w</span> 13 reference.fasta reads.fastq
+
+<span class="c"># Check for adapter contamination</span>
+minimap2 <span class="nt">-ax</span> map-ont <span class="nt">--secondary</span><span class="o">=</span>no reference.fasta reads.fastq | <span class="se">\</span>
+  samtools view <span class="nt">-F</span> 4 | <span class="nb">wc</span> <span class="nt">-l</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="high-memory-usage">High Memory Usage</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># Reduce batch size</span>
+minimap2 <span class="nt">-I</span> 4G <span class="nt">-K</span> 2G <span class="nt">-ax</span> map-ont reference.fasta reads.fastq
+
+<span class="c"># Process in smaller chunks</span>
+<span class="nb">split</span> <span class="nt">-l</span> 40000 reads.fastq chunk_
+<span class="k">for </span>chunk <span class="k">in </span>chunk_<span class="k">*</span><span class="p">;</span> <span class="k">do
+    </span>minimap2 <span class="nt">-ax</span> map-ont reference.fasta <span class="s2">"</span><span class="nv">$chunk</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> all_alignments.sam
+<span class="k">done</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="integration-with-other-tools">Integration with Other Tools</h2>
+
+<h3 id="minimap2--samtools-pipeline">Minimap2 + Samtools Pipeline</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># Complete alignment pipeline</span>
+
+<span class="nv">REFERENCE</span><span class="o">=</span><span class="s2">"reference.fasta"</span>
+<span class="nv">READS</span><span class="o">=</span><span class="s2">"nanopore_reads.fastq"</span>
+<span class="nv">OUTPUT_PREFIX</span><span class="o">=</span><span class="s2">"sample"</span>
+
+<span class="c"># Align reads</span>
+minimap2 <span class="nt">-ax</span> map-ont <span class="nt">-t</span> 8 <span class="s2">"</span><span class="nv">$REFERENCE</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$READS</span><span class="s2">"</span> | <span class="se">\</span>
+  samtools <span class="nb">sort</span> -@ 4 <span class="nt">-o</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">.bam"</span>
+
+<span class="c"># Index BAM file</span>
+samtools index <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">.bam"</span>
+
+<span class="c"># Get statistics</span>
+samtools flagstat <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">.bam"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">_stats.txt"</span>
+
+<span class="c"># Generate coverage</span>
+samtools depth <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">.bam"</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OUTPUT_PREFIX</span><span class="k">}</span><span class="s2">_coverage.txt"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<p>Minimap2 represents the state-of-the-art in sequence alignment, particularly for long-read sequencing data. Its versatility and speed make it an essential tool in modern bioinformatics workflows.</p>
+
+<h2 id="congratulations-">Congratulations! 🎉</h2>
+
+<p>You’ve completed the DNA Alignment Tutorial! You now understand:</p>
+
+<ul>
+  <li>The theoretical foundations of sequence alignment (Smith-Waterman)</li>
+  <li>Fast database searching with BLAST</li>
+  <li>Standard alignment formats (SAM/BAM)</li>
+  <li>How to evaluate alignment tools</li>
+  <li>Modern long-read alignment with Minimap2</li>
+</ul>
+
+<p>These skills form the foundation for many bioinformatics analyses, from variant calling to genome assembly to evolutionary studies.</p>
+
+                
+                <!-- Navigation buttons -->
+                
+                
+                <div class="page-navigation">
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            
+                            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <a href="/testing-mappers/" class="nav-btn prev-btn">
+                            ← Testing Mappers
+                        </a>
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

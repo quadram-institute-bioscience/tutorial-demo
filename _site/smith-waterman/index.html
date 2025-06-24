@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smith-Waterman - DNA Alignment Tutorial</title>
+    <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><a href="/">DNA Alignment Tutorial</a></h1>
+                <p>A comprehensive tutorial on DNA sequence alignment techniques and tools</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Tutorial Pages</h3>
+                <ul class="nav-list">
+                    
+                    
+                    <li>
+                        <a href="/introduction/" 
+                           class="nav-link ">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/smith-waterman/" 
+                           class="nav-link active">
+                            Smith-Waterman
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/blast/" 
+                           class="nav-link ">
+                            BLAST
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/sam-format/" 
+                           class="nav-link ">
+                            SAM Format
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/testing-mappers/" 
+                           class="nav-link ">
+                            Testing Mappers
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/minimap2/" 
+                           class="nav-link ">
+                            Minimap2
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1 id="smith-waterman-algorithm">Smith-Waterman Algorithm</h1>
+
+<p>The Smith-Waterman algorithm is the gold standard for <strong>local sequence alignment</strong>. Developed by Temple Smith and Michael Waterman in 1981, it guarantees finding the optimal local alignment between two sequences.</p>
+
+<h2 id="how-it-works">How It Works</h2>
+
+<p>The algorithm uses dynamic programming to build a scoring matrix and find the alignment path that maximizes the alignment score.</p>
+
+<h3 id="scoring-system">Scoring System</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Match/Mismatch</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Match</td>
+      <td>+2</td>
+    </tr>
+    <tr>
+      <td>Mismatch</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>Gap</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="algorithm-steps">Algorithm Steps</h3>
+
+<ol>
+  <li><strong>Initialize</strong> the scoring matrix with zeros</li>
+  <li><strong>Fill</strong> the matrix using the recurrence relation</li>
+  <li><strong>Traceback</strong> from the highest score to find the optimal alignment</li>
+</ol>
+
+<h2 id="example-alignment">Example Alignment</h2>
+
+<p>Let’s align two DNA sequences:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>Sequence 1: ACGTACGT
+Sequence 2: CGTACG
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="scoring-matrix">Scoring Matrix</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>    ""  C  G  T  A  C  G
+""   0  0  0  0  0  0  0
+A    0  0  0  0  2  1  0
+C    0  2  1  0  1  4  3
+G    0  1  4  3  2  3  6
+T    0  0  3  6  5  4  5
+A    0  0  2  5  8  7  6
+C    0  2  1  4  7 10  9
+G    0  1  4  3  6  9 12
+T    0  0  3  6  5  8 11
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<details>
+  <summary>How is the scoring matrix calculated?</summary>
+
+  <p>For each cell (i,j), we calculate:</p>
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>  score[i][j] = max(
+      0,                                    // Start new alignment
+      score[i-1][j-1] + match_score,      // Diagonal (match/mismatch)
+      score[i-1][j] + gap_penalty,        // Up (gap in sequence 2)
+      score[i][j-1] + gap_penalty         // Left (gap in sequence 1)
+  )
+</pre></td></tr></tbody></table></code></pre></div>  </div>
+
+</details>
+
+<h2 id="implementation-example">Implementation Example</h2>
+
+<p>Here’s a simplified Python implementation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">smith_waterman</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mismatch</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">gap</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="s">"""
+    Simple Smith-Waterman implementation
+    """</span>
+    <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="c1"># Initialize scoring matrix
+</span>    <span class="n">score_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">cols</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">)]</span>
+    
+    <span class="n">max_score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Fill the scoring matrix
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+            <span class="c1"># Calculate scores for each possibility
+</span>            <span class="k">if</span> <span class="n">seq1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">seq2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">diagonal_score</span> <span class="o">=</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">match</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">diagonal_score</span> <span class="o">=</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">mismatch</span>
+            
+            <span class="n">up_score</span> <span class="o">=</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">gap</span>
+            <span class="n">left_score</span> <span class="o">=</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gap</span>
+            
+            <span class="c1"># Take maximum (including 0 for local alignment)
+</span>            <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">diagonal_score</span><span class="p">,</span> <span class="n">up_score</span><span class="p">,</span> <span class="n">left_score</span><span class="p">)</span>
+            
+            <span class="c1"># Track maximum score position
+</span>            <span class="k">if</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_score</span><span class="p">:</span>
+                <span class="n">max_score</span> <span class="o">=</span> <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">max_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">score_matrix</span><span class="p">,</span> <span class="n">max_score</span><span class="p">,</span> <span class="n">max_pos</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="advantages-and-limitations">Advantages and Limitations</h2>
+
+<h3 id="advantages-">Advantages ✅</h3>
+<ul>
+  <li><strong>Optimal alignment</strong>: Guaranteed to find the best local alignment</li>
+  <li><strong>Sensitive</strong>: Can detect weak similarities</li>
+  <li><strong>Well-established</strong>: Theoretical foundation for many tools</li>
+</ul>
+
+<h3 id="limitations-">Limitations ❌</h3>
+<ul>
+  <li><strong>Computational cost</strong>: O(n×m) time and space complexity</li>
+  <li><strong>Pairwise only</strong>: Cannot align multiple sequences simultaneously</li>
+  <li><strong>Speed</strong>: Too slow for large-scale database searches</li>
+</ul>
+
+<details>
+  <summary>When should you use Smith-Waterman?</summary>
+
+  <p>Use Smith-Waterman when:</p>
+  <ul>
+    <li>You need the most accurate alignment possible</li>
+    <li>Working with shorter sequences (&lt; 10,000 bp)</li>
+    <li>Sensitivity is more important than speed</li>
+    <li>You’re aligning highly divergent sequences</li>
+  </ul>
+
+  <p>Avoid when:</p>
+  <ul>
+    <li>Searching large databases (use BLAST instead)</li>
+    <li>Working with very long sequences</li>
+    <li>Speed is critical</li>
+  </ul>
+
+</details>
+
+<h2 id="modern-implementations">Modern Implementations</h2>
+
+<p>While the basic algorithm is slow, several optimized implementations exist:</p>
+
+<ul>
+  <li><strong>SSEARCH</strong> (FASTA package): Optimized Smith-Waterman</li>
+  <li><strong>Water</strong> (EMBOSS): User-friendly implementation</li>
+  <li><strong>SWIPE</strong>: Vectorized implementation for database searches</li>
+</ul>
+
+<h2 id="try-it-yourself">Try It Yourself</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># Using EMBOSS water tool</span>
+water sequence1.fasta sequence2.fasta <span class="nt">-gapopen</span> 10 <span class="nt">-gapextend</span> 0.5 <span class="nt">-outfile</span> alignment.txt
+
+<span class="c"># Using SSEARCH from FASTA package</span>
+ssearch36 query.fasta database.fasta
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<p>Next, we’ll explore BLAST, which uses heuristics to achieve much faster database searches while maintaining reasonable sensitivity.</p>
+
+                
+                <!-- Navigation buttons -->
+                
+                
+                <div class="page-navigation">
+                    
+                    
+                    
+                    
+                    
+                        
+                    
+                        
+                            
+                            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <a href="/introduction/" class="nav-btn prev-btn">
+                            ← Introduction
+                        </a>
+                    
+                    
+                    
+                        <a href="/blast/" class="nav-btn next-btn">
+                            BLAST →
+                        </a>
+                    
+                </div>
+                
+            </div>
+        </main>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
