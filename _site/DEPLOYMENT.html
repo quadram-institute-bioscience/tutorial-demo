@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - DNA Alignment Tutorial</title>
+    <title>Deployment Instructions - DNA Alignment Tutorial</title>
     <meta name="description" content="A comprehensive tutorial on DNA sequence alignment techniques and tools">
     
     <!-- Fonts -->
@@ -86,87 +86,65 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-wrapper">
-                <h1 id="dna-alignment-tutorial">DNA Alignment Tutorial</h1>
+                <h1 id="deployment-instructions">Deployment Instructions</h1>
 
-<p>Welcome to this comprehensive tutorial on DNA sequence alignment! This guide will take you through the fundamental concepts, tools, and techniques used in bioinformatics for aligning DNA sequences.</p>
+<h2 id="github-pages-setup">GitHub Pages Setup</h2>
 
-<h2 id="what-youll-learn">What You’ll Learn</h2>
+<h3 id="option-1-repository-name-in-subfolder">Option 1: Repository Name in Subfolder</h3>
+<p>If your site is deployed to <code class="language-plaintext highlighter-rouge">my-org.github.io/repository-name</code>, update your <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
 
-<p>This tutorial covers the essential aspects of DNA alignment, from theoretical foundations to practical applications:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/repository-name"</span>  <span class="c1"># Replace with your actual repository name</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://my-org.github.io"</span>  <span class="c1"># Replace with your GitHub Pages URL</span>
+</code></pre></div></div>
 
-<p>🧬 <strong>Theoretical Background</strong>: Understanding the Smith-Waterman algorithm and alignment principles</p>
+<h3 id="option-2-custom-domain-or-root-domain">Option 2: Custom Domain or Root Domain</h3>
+<p>If your site is deployed to a custom domain or <code class="language-plaintext highlighter-rouge">my-org.github.io</code> (root), keep:</p>
 
-<p>🔍 <strong>Database Searching</strong>: Using BLAST for fast similarity searches</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://your-custom-domain.com"</span>  <span class="c1"># Or https://my-org.github.io</span>
+</code></pre></div></div>
 
-<p>📄 <strong>File Formats</strong>: Working with SAM/BAM files, the standard for alignment data</p>
+<h2 id="github-actions-deployment">GitHub Actions Deployment</h2>
 
-<p>⚡ <strong>Performance Evaluation</strong>: How to test and compare different alignment tools</p>
-
-<p>🚀 <strong>Modern Tools</strong>: Hands-on experience with Minimap2 for long-read alignment</p>
-
-<h2 id="tutorial-structure">Tutorial Structure</h2>
-
-<div class="nav-section">
-    <h3>Tutorial Pages</h3>
-    <ul class="nav-list">
-        
-        
-        <li>
-            <a href="/tutorial-demo/introduction/" class="nav-link">
-                Introduction
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tutorial-demo/smith-waterman/" class="nav-link">
-                Smith-Waterman
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tutorial-demo/blast/" class="nav-link">
-                BLAST
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tutorial-demo/sam-format/" class="nav-link">
-                SAM Format
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tutorial-demo/testing-mappers/" class="nav-link">
-                Testing Mappers
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tutorial-demo/minimap2/" class="nav-link">
-                Minimap2
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-<h2 id="prerequisites">Prerequisites</h2>
-
-<p>Before starting this tutorial, you should have:</p>
-
+<p>The included GitHub Actions workflow automatically:</p>
 <ul>
-  <li>Basic understanding of DNA structure and molecular biology</li>
-  <li>Familiarity with command line interfaces</li>
-  <li>Knowledge of common bioinformatics file formats (FASTA, FASTQ)</li>
+  <li>Detects your GitHub Pages configuration</li>
+  <li>Sets the correct baseurl during build</li>
+  <li>Handles asset paths correctly</li>
 </ul>
 
-<h2 id="getting-started">Getting Started</h2>
+<h3 id="enable-github-pages">Enable GitHub Pages</h3>
+<ol>
+  <li>Go to your repository Settings → Pages</li>
+  <li>Select “GitHub Actions” as the source</li>
+  <li>Save the settings</li>
+</ol>
 
-<p>Ready to begin? Start with the <a href="/tutorial-demo/introduction/">Introduction</a> to learn about the fundamental concepts of DNA alignment.</p>
+<h3 id="manual-baseurl-override">Manual Baseurl Override</h3>
+<p>If you need to manually set the baseurl, update <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
 
-<hr />
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/your-repo-name"</span>
+</code></pre></div></div>
 
-<p><em>This tutorial was designed to be practical and hands-on. Each section includes examples, code snippets, and exercises to reinforce your learning.</em></p>
+<p>Then push to trigger a new deployment.</p>
+
+<h2 id="local-development">Local Development</h2>
+
+<p>For local development, use:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">relative_url</code> filter ensures assets work both locally and on GitHub Pages.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>If CSS/JS files are not loading:</p>
+<ol>
+  <li>Check that your repository name matches the baseurl in <code class="language-plaintext highlighter-rouge">_config.yml</code></li>
+  <li>Verify GitHub Actions completed successfully</li>
+  <li>Clear browser cache and hard refresh</li>
+  <li>Check that all asset references use <code class="language-plaintext highlighter-rouge">/tutorial-demo/path</code></li>
+</ol>
 
                 
                 <!-- Navigation buttons -->
